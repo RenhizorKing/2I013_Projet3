@@ -1,1 +1,2 @@
-# 2I013_Projet3
+# JAVA_Project
+Braconnier Pokemon Ecosys
