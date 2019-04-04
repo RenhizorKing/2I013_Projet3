@@ -43,33 +43,6 @@ public class Braconnier {
 			Monde.getcarte_Ag().remove(this);
 			return;
 		}
-		
-//			this.sens = (int)(Math.random()*4);
-//			if (this.sens == 0) {
-//				if(Terrain.getTerrain()[(y-1+Monde.getDy())%Monde.getDy()][x][1] >= Terrain.contourRoche() || Terrain.getTerrain()[(y-1+Monde.getDy())%Monde.getDy()][x][2] == 1) {
-//					setSens(cpt+1);
-//					return;
-//				}
-//			}
-//			if (this.sens == 1) {
-//				if(Terrain.getTerrain()[(y+1+Monde.getDy())%Monde.getDy()][x][1] >= Terrain.contourRoche() || Terrain.getTerrain()[(y+1+Monde.getDy())%Monde.getDy()][x][2] == 1) {
-//					setSens(cpt+1);
-//					return;
-//				}
-//			}
-//			if (this.sens == 2) {
-//				if(Terrain.getTerrain()[y][(x+1+Monde.getDx())%Monde.getDx()][1] >= Terrain.contourRoche() || Terrain.getTerrain()[y][(x+1+Monde.getDx())%Monde.getDx()][2] == 1) {
-//					setSens(cpt+1);
-//					return;
-//				}
-//			}
-//			if (this.sens == 3) {
-//				if(Terrain.getTerrain()[y][(x-1+Monde.getDx())%Monde.getDx()][1] >= Terrain.contourRoche() || Terrain.getTerrain()[y][(x-1+Monde.getDx())%Monde.getDx()][2]==1) {
-//					setSens(cpt+1);
-//					return;
-//				}
-//			
-//		}
 		double d=Integer.MAX_VALUE;
 		for (int i=0;i<Monde.getcarte_Ag().size();i++) {
 			if (Monde.getcarte_Ag().get(i) instanceof M1 || Monde.getcarte_Ag().get(i) instanceof M2) {
@@ -81,10 +54,8 @@ public class Braconnier {
 					if (delta_x<0 && delta_y>0) {
 						if (Math.abs(delta_x)>=Math.abs(delta_y)) {
 							this.sens=1;
-							
 						}else {
 							this.sens=3;
-							
 						}
 					}
 					if (delta_x>0 && delta_y<0) {
@@ -113,6 +84,36 @@ public class Braconnier {
 				
 			}
 		}
+		
+		
+		boolean obstacle;
+		do {
+			obstacle=false;
+			if (this.sens == 0) {
+				if(Terrain.getTerrain()[y][(x-1+Monde.getDx())%Monde.getDx()][1] >= Terrain.contourRoche() || Terrain.getTerrain()[y][(x-1+Monde.getDx())%Monde.getDx()][2] == 1) {
+					obstacle=true;
+				}
+			}
+			if (this.sens == 1) {
+				if(Terrain.getTerrain()[y][(x+1+Monde.getDx())%Monde.getDx()][1] >= Terrain.contourRoche() || Terrain.getTerrain()[y][(x+1+Monde.getDx())%Monde.getDx()][2] == 1) {
+					obstacle=true;
+				}
+			}
+			if (this.sens == 2) {
+				if(Terrain.getTerrain()[(y+1+Monde.getDy())%Monde.getDy()][x][1] >= Terrain.contourRoche() || Terrain.getTerrain()[(y+1+Monde.getDy())%Monde.getDy()][x][2] == 1) {
+					obstacle=true;
+				}
+			}
+			if (this.sens == 3) {
+				if(Terrain.getTerrain()[(y-1+Monde.getDy())%Monde.getDy()][x][1] >= Terrain.contourRoche() || Terrain.getTerrain()[(y-1+Monde.getDy())%Monde.getDy()][x][2]==1) {
+					obstacle=true;
+				}
+			
+		}
+			if (obstacle==true) {				
+				this.sens = (int)(Math.random()*4);
+			}
+		}while(obstacle);
 	}
 	
 	public int getSens() {

@@ -31,7 +31,7 @@ import Mobs.Pomme;
 import Monde.Monde;
 import Monde.Terrain;
 
-public class SpriteDemo extends JPanel implements KeyListener,MouseListener,MouseWheelListener{
+public class SpriteDemo extends JPanel implements KeyListener,MouseWheelListener{
 
 
 	private JFrame frame;
@@ -95,7 +95,6 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 		{
 			TombeRIP = ImageIO.read(new File("tete-de-mort.png"));
 			waterSprite = ImageIO.read(new File("water.png"));
-			treeSprite = ImageIO.read(new File("arbref.png"));
 			grassSprite = ImageIO.read(new File("herbeP.png"));
 			grassSpriteH = ImageIO.read(new File("herbePN.png"));
 			grassSpriteA = ImageIO.read(new File("herbePA.png"));
@@ -476,7 +475,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 				vitesse=20;			
 		}
 		if (source == 107) {
-			spriteLength+=10;
+			spriteLength+=1;
 
 			x=dx*spriteLength;
 			y=dy*spriteLength;
@@ -484,7 +483,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 			frame.setVisible(true);
 		}
 		if (source == 109) {
-			spriteLength-=10;
+			spriteLength-=1;
 			x=dx*spriteLength;
 			y=dy*spriteLength;
 			frame.setSize(x,y+37);
@@ -527,83 +526,27 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		//e.getLocationOnScreen()
-		//System.out.println(""+(e.getLocationOnScreen().x-this.x) + " "+(e.getLocationOnScreen().y-this.getWidth()));
-		
-		if (e.getButton()==1) {
-			System.out.println(""+(e.getX())+ " "+(e.getY()));
-			System.out.println(""+(e.getX()/spriteLength)+ " "+(e.getY()/spriteLength));
-			//System.out.println(""+((e.getX() - frame.getX())/spriteLength)+ " "+((e.getY() - frame.getY()-37))/spriteLength);
-			System.out.println("----------");
-			//a1=(e.getX()/spriteLength);
-			//a2=(e.getY()/spriteLength);
-			a1=Math.abs((e.getX()/spriteLength)-1);
-			a2=Math.abs((e.getY()/spriteLength)-1);
-			wx=a1+3;
-			wy=a2+3;
-			//spriteLength+=2;
-			//spriteLength+=10;
-			//spriteLength+=10;
-			//a1=2;
-			//a2=2;
-			//System.exit(0);			
-		}
-		if (e.getButton()==3) {
-			System.out.println(""+(e.getX() - frame.getX())+ " "+(e.getY() - frame.getY()+27));
-			//spriteLength+=10;
-			a1=0;
-			a2=0;
-			wx=dx;
-			wy=dy;
-			//spriteLength=40;
-			//spriteLength-=10;
-			//System.exit(0);			
-		}
-	}
 	
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void mouseWheelMoved(MouseWheelEvent e) {
         int notches = e.getWheelRotation();
         if (notches < 0) {
              spriteLength+=1;  // scroll ver le haut 
         } else {
-           if (frame.getWidth()+10 <= spriteLength*dx || frame.getWidth()+10 <= spriteLength*dy) 
+        	if (frame.getWidth()+10 <= spriteLength*dx || frame.getWidth()+10 <= spriteLength*dy) 
         	   spriteLength-=1; // scroll ver le haut 
-          }
+        }
+//        	System.out.println(""+(wx-a1)+" "+(wy-a2));
+//     	   	spriteLength-=1; // scroll ver le haut 
+
+        
     } 
 	
 	public static void main(String[] args) {
 		Terrain terrain= new Terrain(dx=100,dy=100);
-		Monde monde = new Monde(dx,dy,0.1,0.1);
+		Monde monde = new Monde(dx,dy,0.01,0.05);
 		SpriteDemo a =new SpriteDemo();
         a.addKeyListener(a);
-        a.addMouseListener(a);
         a.addMouseWheelListener(a);
         a.setFocusable(true);
 		//System.out.println(""+((M1) Monde.getCarte().get(0)).getSens());
@@ -634,7 +577,6 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 				monde.Refresh();
 				cpt_pas = 0;
 				marcher = 0;
-			//	terrain.Stockage_passage();
 				Monde.grandir();
 			//	M.reproduction();
 				terrain.MonteEau(terrain.getPluie());
@@ -661,7 +603,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 			}
 			marcher += (int)(spriteLength/8);
 			try{
-			Thread.sleep(a.vitesse); // en ms
+				Thread.sleep(a.vitesse); // en ms
 			}catch(Exception e){
 				e.printStackTrace();
 			}
