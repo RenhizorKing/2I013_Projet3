@@ -32,7 +32,15 @@ public class Monde {
 	public Monde(int x, int y, double taux_agent,double percolation_Ab) {//Initialisation de la liste des agents à mettre dans le monde
 		dx=x;
 		dy=y;
-		carte_Ag.add(new Braconnier(10,10));
+		for (int i=0;i<dy;i++) {
+			for(int j=0;j<dx;j++) {
+				if(Terrain.getTerrain()[i][j][1] >= Terrain.getEau() && Terrain.getTerrain()[i][j][2]==0 && Terrain.getTerrain()[i][j][1] < Terrain.contourRoche()) {
+					if (Math.random() < 0.001)
+						carte_Ag.add(new Braconnier(j,i));
+				}
+			}
+		}
+			
 		for (int i=0;i<dy;i++) {
 			for(int j=0;j<dx;j++) {
 				if(Terrain.getTerrain()[i][j][1] >= Terrain.getEau() && Terrain.getTerrain()[i][j][1] < Terrain.contourRoche()) {
@@ -59,38 +67,7 @@ public class Monde {
 					}
 				}
 			}
-		/*for (int i=0;i<nb_Ag;i++) {
-			double p1 =  Math.random();
-			if (p1 <= 0.99) {
-				int x1= (int) (Math.random()*dx);
-				int y1 =(int) (Math.random()*dy);
-				if(Terrain.getTerrain()[x1][y1][1] > 10 && Terrain.getTerrain()[x1][y1][2] == 0) {
-					M1 monstre = new M1(x1, y1);
-					carte_Ag.add(monstre);
-				}
-				else {
-					i--;
-				}
-			}else {
-				int x1= (int) (Math.random()*dx);
-				int y1 =(int) (Math.random()*dy);
-				M2 monstre = new M2(x1, y1);
-				carte_Ag.add(monstre);
-			}
-		}*/
-		/*
-		carte_Ag.add(new M1(10,10));
-		carte_Ab.add(new Arbre(11,10));
-		carte_Ab.add(new Arbre(9,10));
-		carte_Ab.add(new Arbre(10,9));
-		carte_Ab.add(new Arbre(10,11));*/
-		/*for (int i=0;i<carte_Ag.size();i++) {
-			if (carte_Ag.get(i) instanceof M1)	
-				((M1) carte_Ag.get(i)).setSens();
-		}*/
-		//carte_Ag.add(new M1(6,6));
-		//carte_Ag.add(new M2(5,5));
-	}
+		}
 	
 	public void pomme_pop(int cpt) { //fait apparaitre des pomme sur la carte_A
 		if (cpt % 2 == 0) {
@@ -146,6 +123,11 @@ public class Monde {
 					}
 				}
 			}
+		}
+	}
+	public void soutien_Braconnier() {
+		if (Math.random()<0.01) {
+			
 		}
 	}
 	public static int compteM() {

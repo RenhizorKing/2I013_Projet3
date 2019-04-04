@@ -105,7 +105,7 @@ public abstract class M {
 		ArrayList<Object> carte = Monde.getcarte_Ag();
 		int taille = carte.size();
 		for (int i=0; i<taille; i++) {
-			if (((M) carte.get(i)).getStep() >20) {
+			if (carte.get(i) instanceof M && ((M) carte.get(i)).getStep() >20) {
 				for (int j=0;j<taille ;j++) {
 					if (!(carte.get(j).equals(carte.get(i))) && carte.get(j).getClass().equals(carte.get(i).getClass()) && ((M) carte.get(j)).getStep() >20 && ((M)carte.get(j)).getX() == ((M)carte.get(i)).getX() && ((M)carte.get(j)).getY() == ((M)carte.get(i)).getY() ) {
 						if (carte.get(i) instanceof M1) {

@@ -578,7 +578,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseWheelListener
 				}else {
 					terrain.evaporeLave(terrain.getPluie());
 				}
-				//monde.tree_pop(arbreEnCroissance);
+				monde.tree_pop(arbreEnCroissance);
 				monde.pomme_pop(step);
 				Pomme.duree();
 				Pomme.delete();
@@ -586,7 +586,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseWheelListener
 				cpt_pas = 0;
 				marcher = 0;
 				Monde.grandir();
-			//	M.reproduction();
+				M.reproduction();
 				terrain.MonteEau(terrain.getPluie());
 				terrain.herbePoussant();
 				if(cycle_volcan % 100 == 0) {
