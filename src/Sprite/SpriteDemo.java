@@ -511,6 +511,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseWheelListener
 			if ((wx-a1)*spriteLength >= this.getBounds().width+(a1+1)*spriteLength) {
 				a1+=1;
 				wx+=1;				
+	        	System.out.println(""+wx+" "+wy+" "+a1+" "+a2+" <-D");
 			}
 		}
 }						
@@ -533,11 +534,18 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseWheelListener
         if (notches < 0) {
              spriteLength+=1;  // scroll ver le haut 
         } else {
-        	if (frame.getWidth()+10 <= spriteLength*dx || frame.getWidth()+10 <= spriteLength*dy) 
-        	   spriteLength-=1; // scroll ver le haut 
+        	if (((wx-a1)*spriteLength >= this.getBounds().width+(a1+1)*spriteLength) && ((wy-a2)*spriteLength > this.getBounds().height+(a2+1)*spriteLength)) {
+        		spriteLength-=1; // scroll ver le haut 
+        	}else {
+//        		spriteLength-=1; // scroll ver le haut 
+//        		a1-=1;
+//				wx-=1;
+        	}
+        	
+        	
+//        	if (frame.getWidth()+10 <= spriteLength*dx || frame.getWidth()+10 <= spriteLength*dy) 
+//        	   spriteLength-=1; // scroll ver le haut 
         }
-//        	System.out.println(""+(wx-a1)+" "+(wy-a2));
-//     	   	spriteLength-=1; // scroll ver le haut 
 
         
     } 
