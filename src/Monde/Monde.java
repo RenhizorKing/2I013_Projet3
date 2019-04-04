@@ -29,15 +29,17 @@ public class Monde {
 		return carte_P;
 	}
 
-	public Monde(int x, int y, double taux_agent,double percolation_Ab) {//Initialisation de la liste des agents à mettre dans le monde
+	public Monde(int x, int y,int nb_Braconnier, double taux_agent,double percolation_Ab) {//Initialisation de la liste des agents à mettre dans le monde
 		dx=x;
 		dy=y;
-		for (int i=0;i<dy;i++) {
-			for(int j=0;j<dx;j++) {
-				if(Terrain.getTerrain()[i][j][1] >= Terrain.getEau() && Terrain.getTerrain()[i][j][2]==0 && Terrain.getTerrain()[i][j][1] < Terrain.contourRoche()) {
-					if (Math.random() < 0.001)
-						carte_Ag.add(new Braconnier(j,i));
-				}
+		int cpt_Braconier=0;
+		while (cpt_Braconier<nb_Braconnier) {
+			int x1= (int) (Math.random()*dx);
+			int y1 =(int) (Math.random()*dy);
+			if(Terrain.getTerrain()[y1][x1][1] >= Terrain.getEau() && Terrain.getTerrain()[y1][x1][2]==0 && Terrain.getTerrain()[y1][x1][1] < Terrain.contourRoche()) {
+				Braconnier braconnier = new Braconnier(x1, y1);
+				carte_Ag.add(braconnier);
+				cpt_Braconier+=1;
 			}
 		}
 			

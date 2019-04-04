@@ -552,7 +552,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseWheelListener
 	
 	public static void main(String[] args) {
 		Terrain terrain= new Terrain(dx=100,dy=100);
-		Monde monde = new Monde(dx,dy,0.01,0.05);
+		Monde monde = new Monde(dx,dy,3,0.01,0.05);
 		SpriteDemo a =new SpriteDemo();
         a.addKeyListener(a);
         a.addMouseWheelListener(a);
