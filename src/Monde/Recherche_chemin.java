@@ -145,7 +145,7 @@ public class Recherche_chemin {
 		System.out.println("");
 		chemin_final(cpt+=1);
 	}
-	public void visibility() {
+	public void visibility_schema() {
 		System.out.println("");
 		for (int i=0;i<dy;i++) {
 			for (int j=0;j<dx;j++) {
@@ -170,8 +170,24 @@ public class Recherche_chemin {
 			System.out.println("");
 		}
 	}
+	public void simplification() {
+		for (int i=0;i<dy;i++) {
+			for (int j=0;j<dx;j++) {
+				if (terrain[i][j]==Integer.MIN_VALUE) {
+					terrain[i][j]=0;
+					continue;
+				}
+				if (terrain[i][j]<0) {
+					terrain[i][j]=1;
+				}else {
+					terrain[i][j]=0;
+				}
+			}
+		}
+	}
 	public int[][] getTerrain() {
 		return terrain;
 	}
+	
 	
 } 

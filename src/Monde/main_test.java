@@ -16,8 +16,10 @@ public class main_test {
 		System.out.println("-------------");
 		Path.chemin_final(0);
 		System.out.println(""+Path.getTerrain()[2][2]+" ... "+Path.getTerrain()[8][8]);
-//		Path.afficher();
-//		System.out.println("-------------");
-		Path.visibility();
+		Path.visibility_schema();
+		System.out.println("-------------");
+		Path.simplification();
+		Path.afficher();
+		System.out.println("\n|"+Path.getTerrain()[2][2]+"|"+Path.getTerrain()[8][8]+"|");
 	}
 }
