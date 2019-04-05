@@ -30,6 +30,10 @@ public class Recherche_chemin {
 		System.out.println("|");
 		for (int i=0;i<dy;i++) {
 			for (int j=0;j<dx;j++) {
+				if (terrain[i][j]==Integer.MIN_VALUE) {
+					System.out.print("M ");
+					continue;
+				}
 				System.out.print(""+terrain[i][j]+" ");
 			}
 			System.out.println("");
@@ -53,7 +57,8 @@ public class Recherche_chemin {
 					continue;
 				}
 				if (terrain[i][j]==Integer.MIN_VALUE) {
-					System.out.println("M");
+					System.out.print("M  ");
+					continue;
 				}
 				if (terrain[i][j]>=0)
 					System.out.print(""+terrain[i][j]+"  ");
