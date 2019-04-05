@@ -1,6 +1,7 @@
 package Mobs;
 
 import Monde.Monde;
+import Monde.Recherche_chemin;
 import Monde.Terrain;
 
 public class Braconnier {
@@ -44,13 +45,18 @@ public class Braconnier {
 			return;
 		}
 		double d=Integer.MAX_VALUE;
+		int x_M=-1;
+		int y_M=-1;
+		int delta_x=0;
+		int delta_y=0;
 		for (int i=0;i<Monde.getcarte_Ag().size();i++) {
 			if (Monde.getcarte_Ag().get(i) instanceof M1 || Monde.getcarte_Ag().get(i) instanceof M2) {
-				int delta_x=this.x-((M) Monde.getcarte_Ag().get(i)).getX();
-				int delta_y=this.y-((M) Monde.getcarte_Ag().get(i)).getY();
+				delta_x=this.x-((M) Monde.getcarte_Ag().get(i)).getX();
+				delta_y=this.y-((M) Monde.getcarte_Ag().get(i)).getY();
 				double delta=Math.sqrt(delta_x*delta_x+delta_y*delta_y);
 				
 				if (delta<d) {
+					/*
 					if (delta_x<0 && delta_y>0) {
 						if (Math.abs(delta_x)>=Math.abs(delta_y)) {
 							this.sens=1;
@@ -78,13 +84,39 @@ public class Braconnier {
 						}else {
 							this.sens=3;
 						}
-					}
+					}*/
 					d=delta;
+					x_M=((M) Monde.getcarte_Ag().get(i)).getX();
+					y_M=((M) Monde.getcarte_Ag().get(i)).getY();
 				}
 				
 			}
 		}
-		
+		if (x_M!=-1 && y_M!=-1) {
+			Recherche_chemin Path = new Recherche_chemin(Monde.getDx(),Monde.getDy(), this.x, this.y, x_M, y_M);
+			Path.recherche(0);
+			Path.chemin_final(0);
+			Path.simplification();
+			if (Path.getTerrain()[y_M][x_M]==1) {
+				if (Path.getTerrain()[this.y][(this.x+1+Monde.getDx())%Monde.getDx()]==1) {
+					this.sens=1;
+					return ;
+				}
+				if (Path.getTerrain()[this.y][(this.x-1+Monde.getDx())%Monde.getDx()]==1) {
+					this.sens=0;
+					return ;
+				}
+				if (Path.getTerrain()[(this.y+1+Monde.getDy())%Monde.getDy()][this.x]==1) {
+					this.sens=2;
+					return ;
+				}
+				if (Path.getTerrain()[(this.y-1+Monde.getDy())%Monde.getDy()][this.x]==1) {
+					this.sens=3;
+					return ;
+				}
+			}
+		}
+			
 		
 		boolean obstacle;
 		do {
